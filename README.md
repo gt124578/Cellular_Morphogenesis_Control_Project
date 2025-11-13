@@ -53,7 +53,7 @@ Le système est une boucle de rétroaction qui fonctionne de manière itérative
 1.  **Mesure :** À un instant `t`, le contrôleur extrait l'état actuel du système `K(t)` depuis le simulateur. Cet état est l'ensemble des coordonnées de toutes les cellules vivantes.
     `K(t) = {c₁, c₂, ..., cₙ(t)}` où `cᵢ` est le vecteur de coordonnées de la cellule `i`.
 
-2.  **Comparaison :** Le contrôleur calcule une erreur `e(t)` en mesurant la "distance" entre l'état `K(t)` et la forme cible `K_cible` à l'aide d'une métrique (ex: Distance de Hausdorff).
+2.  **Comparaison :** Le contrôleur calcule une erreur `e(t)` en mesurant la "distance" entre l'état `K(t)` et la forme cible `K_cible` à l'aide d'une métrique.
     `e(t) = Hausdorff(K(t), K_cible)`
 
 3.  **Décision :** Sur la base de l'erreur `e(t)`, l'algorithme de contrôle (la "loi de commande") calcule une nouvelle commande `u(t)`. Cette commande est un vecteur de paramètres qui pilotent l'environnement.

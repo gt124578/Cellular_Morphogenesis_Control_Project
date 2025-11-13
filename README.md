@@ -36,7 +36,7 @@ L'objectif principal est de développer un système de contrôle en boucle ferm�
 -   **Intégrer** le simulateur de morphogenèse existant avec un module de contrôle.
 -   **Généraliser** le concept de contrôle 1D à un cadre multi-dimensionnel pour des formes complexes.
 -   **Implémenter** une boucle de contrôle (Mesure → Comparaison → Décision → Action).
--   **Définir** une métrique d'erreur pertinente (ex: Distance de Hausdorff) pour quantifier l'écart entre la forme actuelle et la forme cible.
+-   **Définir** une métrique d'erreur pertinente (Distance de Hausdorff) pour quantifier l'écart entre la forme actuelle et la forme cible.
 -   **Tester** la performance du système sur des formes de complexité croissante (cercle, carré, drapeau).
 -   **Évaluer** la robustesse du contrôleur face à des perturbations stochastiques (ex: mort cellulaire aléatoire).
 

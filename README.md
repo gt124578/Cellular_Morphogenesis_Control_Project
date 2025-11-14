@@ -43,7 +43,7 @@ L'objectif principal est de développer un système de contrôle en boucle ferm�
 
 ### 3. Dépendances Clés
 Ce projet s'appuie sur deux dépôts préexistants :
-1.  Un **simulateur de morphogenèse cellulaire**.
+1.  [![GitHub Repo](https://img.shields.io/badge/GitHub-autre--repo-blue)](https://github.com/utilisateur/autre-repo)
 2.  Un **module de contrôle 1D** servant de preuve de concept.
 
 ### 4. Architecture du Contrôleur
@@ -95,7 +95,11 @@ Instructions pour installer et lancer.
 ### 6. Structure du Dépôt
 
 
-### 7. Contributeurs
+### 7. Contributeur 
+
+### 8. Référence 
+
+
 
 
 ---

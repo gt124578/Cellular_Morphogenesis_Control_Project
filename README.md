@@ -44,7 +44,9 @@ L'objectif principal est de développer un système de contrôle en boucle ferm�
 ### 3. Dépendances Clés
 Ce projet s'appuie sur deux dépôts préexistants :
 1.  [![GitHub Repo](https://img.shields.io/badge/GitHub-ShapeGrowthModule-blue)](https://github.com/afronvil/ShapeGrowthModule)
-2.  Un **module de contrôle 1D** servant de preuve de concept.
+
+2. [![GitHub Repo](https://img.shields.io/badge/GitHub-OptimalControl-blue)](https://github.com/control-toolbox/OptimalControl.jl)
+
 
 ### 4. Architecture du Contrôleur
 

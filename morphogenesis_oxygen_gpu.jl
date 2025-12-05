@@ -12,18 +12,19 @@ using LinearAlgebra
 using Random
 
 # GPU support (will use CPU if CUDA not available)
+global USE_GPU = false
 try
     using CUDA
     if CUDA.functional()
         println("✓ GPU support enabled (CUDA)")
-        USE_GPU = true
+        global USE_GPU = true
     else
         println("⚠ CUDA not functional, using CPU")
-        USE_GPU = false
+        global USE_GPU = false
     end
 catch
     println("⚠ CUDA not available, using CPU")
-    USE_GPU = false
+    global USE_GPU = false
 end
 
 # ============================================
@@ -167,19 +168,19 @@ code_str = """
 
 # Initial conditions
 for i in 1:N_CELLS
-    code_str *= "    x$(2*(i-1)+1)(0) == $(x0[2*(i-1)+1])\n"
-    code_str *= "    x$(2*i)(0) == $(x0[2*i])\n"
+    global code_str *= "    x$(2*(i-1)+1)(0) == $(x0[2*(i-1)+1])\n"
+    global code_str *= "    x$(2*i)(0) == $(x0[2*i])\n"
 end
-code_str *= "    x$DIM_X(0) == 0.0\n"
+global code_str *= "    x$DIM_X(0) == 0.0\n"
 
 # Final conditions
 for i in 1:N_CELLS
-    code_str *= "    x$(2*(i-1)+1)(tf) == $(xf[2*(i-1)+1])\n"
-    code_str *= "    x$(2*i)(tf) == $(xf[2*i])\n"
+    global code_str *= "    x$(2*(i-1)+1)(tf) == $(xf[2*(i-1)+1])\n"
+    global code_str *= "    x$(2*i)(tf) == $(xf[2*i])\n"
 end
 
 # Time constraint
-code_str *= "    tf ≥ 0.1\n"
+global code_str *= "    tf ≥ 0.1\n"
 
 # Collision avoidance constraints (cells can't overlap)
 for i in 1:N_CELLS
@@ -188,7 +189,7 @@ for i in 1:N_CELLS
         iy = 2*i
         jx = 2*(j-1) + 1
         jy = 2*j
-        code_str *= "    (x$ix(t) - x$jx(t))^2 + (x$iy(t) - x$jy(t))^2 ≥ $RADIUS_SQ\n"
+        global code_str *= "    (x$ix(t) - x$jx(t))^2 + (x$iy(t) - x$jy(t))^2 ≥ $RADIUS_SQ\n"
     end
 end
 
@@ -199,7 +200,7 @@ energy_terms = join(["u$i(t)^2" for i in 1:DIM_U], " + ")
 push!(dyn_list, "0.5*($energy_terms)")  # Cost of movement
 dyn_str = join(dyn_list, ",\n              ")
 
-code_str *= """
+global code_str *= """
     ẋ(t) == [$dyn_str]
     x$DIM_X(tf) + tf → min
 end

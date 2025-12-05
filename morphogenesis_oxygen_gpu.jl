@@ -12,6 +12,9 @@ using LinearAlgebra
 using Random
 
 # GPU support (will use CPU if CUDA not available)
+# Note: USE_GPU is currently for detection and future enhancements.
+# The current OptimalControl.jl solver runs on CPU, but CUDA is available
+# for potential GPU-accelerated operations in future versions.
 global USE_GPU = false
 try
     using CUDA
@@ -207,6 +210,10 @@ end
 """
 
 println("Generating optimal control model...")
+# Note: eval() is necessary here because OptimalControl.jl's @def macro
+# requires the problem definition at compile time. We need to dynamically
+# generate the problem based on N_CELLS, which requires meta-programming.
+# This is a safe use case as the string is constructed from controlled inputs.
 eval(Meta.parse(code_str))
 
 # ============================================

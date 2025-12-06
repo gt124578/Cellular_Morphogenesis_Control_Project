@@ -90,16 +90,28 @@ Instructions pour installer et lancer.
 
 3.  **Lancer une simulation :**
     
-    **Nouvelle simulation avec contrôle basé sur l'oxygène (recommandé) :**
+    **🚀 NOUVEAU : Simulation GPU Agent-Based (RECOMMANDÉ pour n≥100) :**
+    ```bash
+    # Test rapide avec 50 cellules (~5-10 secondes sur GPU)
+    julia --project=. gpu_agent_test.jl
+    
+    # Simulation standard avec 100 cellules (~10-20 secondes)
+    julia --project=. gpu_agent_n100.jl
+    
+    # Grande échelle avec 500 cellules (~30-60 secondes)
+    julia --project=. gpu_agent_n500.jl
+    
+    # Très grande échelle avec 1000 cellules (~1-2 minutes)
+    julia --project=. gpu_agent_n1000.jl
+    ```
+    
+    **Simulation avec contrôle optimal (pour petites échelles n≤30) :**
     ```bash
     # Test rapide avec 10 cellules (~1-2 minutes)
     julia --project=. test_morphogenesis_quick.jl
     
-    # Simulation avec 50 cellules (~10-30 minutes)
+    # Simulation avec 50 cellules (~10-30 minutes, CPU)
     julia --project=. morphogenesis_n50.jl
-    
-    # Simulation avec 100 cellules (~1-3 heures, GPU recommandé)
-    julia --project=. morphogenesis_n100.jl
     ```
     
     **Simulations existantes :**
@@ -114,31 +126,68 @@ Instructions pour installer et lancer.
 
 ```
 .
-├── morphogenesis_oxygen_gpu.jl     # Simulation principale avec contrôle oxygène
-├── morphogenesis_n50.jl            # Configuration pour 50 cellules
-├── morphogenesis_n100.jl           # Configuration pour 100 cellules
-├── test_morphogenesis_quick.jl     # Test rapide (10 cellules)
-├── OXYGEN_SIMULATION_README.md     # Documentation détaillée (EN)
-├── RESUME_FR.md                    # Résumé en français
-├── Project.toml                    # Dépendances Julia
-├── test_optimal_control/           # Scripts de test originaux
+├── morphogenesis_gpu_agent.jl          # 🚀 Simulation GPU agent-based (NOUVEAU)
+├── gpu_agent_test.jl                   # Test GPU rapide (50 cellules)
+├── gpu_agent_n100.jl                   # GPU 100 cellules
+├── gpu_agent_n500.jl                   # GPU 500 cellules
+├── gpu_agent_n1000.jl                  # GPU 1000 cellules
+├── GPU_AGENT_README.md                 # Documentation GPU détaillée
+├── morphogenesis_oxygen_gpu.jl         # Simulation optimal control (CPU)
+├── morphogenesis_n50.jl                # Optimal control 50 cellules
+├── morphogenesis_n100.jl               # Optimal control 100 cellules
+├── test_morphogenesis_quick.jl         # Test rapide (10 cellules)
+├── OXYGEN_SIMULATION_README.md         # Documentation optimal control
+├── RESUME_FR.md                        # Résumé en français
+├── Project.toml                        # Dépendances Julia
+├── test_optimal_control/               # Scripts de test originaux
 │   ├── morphogénèse_R6.jl
 │   ├── morphogenese_R21.jl
 │   └── ...
-└── README.md                       # Ce fichier
+└── README.md                           # Ce fichier
 ```
 
-## Nouvelles Fonctionnalités
+## Deux Approches de Simulation
 
-### Simulation avec Contrôle Basé sur l'Oxygène
+### 🚀 GPU Agent-Based (RECOMMANDÉ pour n≥100)
 
-Cette nouvelle implémentation offre une approche plus réaliste de la morphogénèse :
+**Caractéristiques :**
+- ✅ Vraie accélération GPU avec kernels CUDA
+- ✅ Scalable jusqu'à 1000+ cellules
+- ✅ Temps de calcul : secondes à minutes
+- ✅ Biologiquement réaliste (règles locales)
+- ✅ Inspiré de la recherche (Jeannin-Girardon, Ballet, Rodin)
 
-- ✅ **Support GPU** : Accélération automatique via CUDA (optionnel)
-- ✅ **Zones d'oxygène** : Régions définies qui influencent la différenciation cellulaire
-- ✅ **Différenciation cellulaire** : 3 types de cellules (vaisseaux sanguins, fibroblastes, cellules de base)
-- ✅ **Visualisation GIF** : Génération automatique d'animations
-- ✅ **Scalabilité** : Support de n=10 à n=100 cellules
+**Performances :**
+- 50 cellules : ~5-10 secondes
+- 100 cellules : ~10-20 secondes
+- 500 cellules : ~30-60 secondes
+- 1000 cellules : ~1-2 minutes
+
+**Quand utiliser :**
+- Simulations à grande échelle (n>50)
+- Besoin de performance
+- GPU NVIDIA disponible
+
+Voir [GPU_AGENT_README.md](GPU_AGENT_README.md) pour plus de détails.
+
+### 📊 Optimal Control (Pour petites échelles)
+
+**Caractéristiques :**
+- ✅ Trajectoires mathématiquement optimales
+- ✅ Contrôle précis avec OptimalControl.jl
+- ✅ Contraintes de collision explicites
+- ❌ Temps de calcul O(n³) sur CPU
+- ❌ Limite pratique : n≤30 cellules
+
+**Performances :**
+- 10 cellules : ~1-2 minutes
+- 30 cellules : ~20+ minutes
+- 50 cellules : plusieurs heures
+
+**Quand utiliser :**
+- Petites simulations (n≤30)
+- Besoin de trajectoires optimales
+- Pas de GPU disponible
 
 Voir [OXYGEN_SIMULATION_README.md](OXYGEN_SIMULATION_README.md) pour plus de détails.
 

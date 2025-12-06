@@ -89,12 +89,58 @@ Instructions pour installer et lancer.
     ```
 
 3.  **Lancer une simulation :**
+    
+    **Nouvelle simulation avec contrôle basé sur l'oxygène (recommandé) :**
+    ```bash
+    # Test rapide avec 10 cellules (~1-2 minutes)
+    julia --project=. test_morphogenesis_quick.jl
+    
+    # Simulation avec 50 cellules (~10-30 minutes)
+    julia --project=. morphogenesis_n50.jl
+    
+    # Simulation avec 100 cellules (~1-3 heures, GPU recommandé)
+    julia --project=. morphogenesis_n100.jl
+    ```
+    
+    **Simulations existantes :**
     ```julia
-    # Exécuter le script principal de simulation
-    include("scripts/run_simulation.jl")
+    # Exécuter les scripts de test originaux
+    cd test_optimal_control
+    julia --project=.. morphogénèse_R6.jl
+    julia --project=.. morphogenese_R21.jl
     ```
 
 ### 6. Structure du Dépôt
+
+```
+.
+├── morphogenesis_oxygen_gpu.jl     # Simulation principale avec contrôle oxygène
+├── morphogenesis_n50.jl            # Configuration pour 50 cellules
+├── morphogenesis_n100.jl           # Configuration pour 100 cellules
+├── test_morphogenesis_quick.jl     # Test rapide (10 cellules)
+├── OXYGEN_SIMULATION_README.md     # Documentation détaillée (EN)
+├── RESUME_FR.md                    # Résumé en français
+├── Project.toml                    # Dépendances Julia
+├── test_optimal_control/           # Scripts de test originaux
+│   ├── morphogénèse_R6.jl
+│   ├── morphogenese_R21.jl
+│   └── ...
+└── README.md                       # Ce fichier
+```
+
+## Nouvelles Fonctionnalités
+
+### Simulation avec Contrôle Basé sur l'Oxygène
+
+Cette nouvelle implémentation offre une approche plus réaliste de la morphogénèse :
+
+- ✅ **Support GPU** : Accélération automatique via CUDA (optionnel)
+- ✅ **Zones d'oxygène** : Régions définies qui influencent la différenciation cellulaire
+- ✅ **Différenciation cellulaire** : 3 types de cellules (vaisseaux sanguins, fibroblastes, cellules de base)
+- ✅ **Visualisation GIF** : Génération automatique d'animations
+- ✅ **Scalabilité** : Support de n=10 à n=100 cellules
+
+Voir [OXYGEN_SIMULATION_README.md](OXYGEN_SIMULATION_README.md) pour plus de détails.
 
 
 ### 7. Contributeur 

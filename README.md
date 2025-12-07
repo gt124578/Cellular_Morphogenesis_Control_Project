@@ -90,18 +90,27 @@ Instructions pour installer et lancer.
 
 3.  **Lancer une simulation :**
     
-    **🚀 NOUVEAU : Simulation GPU Agent-Based (RECOMMANDÉ pour n≥100) :**
+    **🚀 NOUVEAU : GPU Avancé avec Division/Mort Cellulaire (RECOMMANDÉ) :**
     ```bash
-    # Test rapide avec 50 cellules (~5-10 secondes sur GPU)
+    # Test rapide avec nouvelles fonctionnalités (~10 secondes sur GPU)
+    julia --project=. gpu_advanced_test.jl
+    
+    # Simulation standard avec 100 cellules (~20 secondes)
+    julia --project=. gpu_advanced_n100.jl
+    
+    # Population dynamique avec 200 cellules (~40 secondes)
+    julia --project=. gpu_advanced_n200.jl
+    ```
+    
+    **GPU Agent-Based de Base (pour n≥100) :**
+    ```bash
+    # Test rapide avec 50 cellules (~5-10 secondes)
     julia --project=. gpu_agent_test.jl
     
     # Simulation standard avec 100 cellules (~10-20 secondes)
     julia --project=. gpu_agent_n100.jl
     
-    # Grande échelle avec 500 cellules (~30-60 secondes)
-    julia --project=. gpu_agent_n500.jl
-    
-    # Très grande échelle avec 1000 cellules (~1-2 minutes)
+    # Grande échelle avec 1000 cellules (~1-2 minutes)
     julia --project=. gpu_agent_n1000.jl
     ```
     
@@ -126,12 +135,17 @@ Instructions pour installer et lancer.
 
 ```
 .
-├── morphogenesis_gpu_agent.jl          # 🚀 Simulation GPU agent-based (NOUVEAU)
+├── morphogenesis_gpu_advanced.jl       # 🎯 GPU avancé avec division/mort (NOUVEAU)
+├── gpu_advanced_test.jl                # Test avancé (50 cellules)
+├── gpu_advanced_n100.jl                # Avancé 100 cellules
+├── gpu_advanced_n200.jl                # Avancé 200 cellules
+├── GPU_ADVANCED_FEATURES.md            # Documentation features avancées
+├── morphogenesis_gpu_agent.jl          # GPU agent-based de base
 ├── gpu_agent_test.jl                   # Test GPU rapide (50 cellules)
 ├── gpu_agent_n100.jl                   # GPU 100 cellules
 ├── gpu_agent_n500.jl                   # GPU 500 cellules
 ├── gpu_agent_n1000.jl                  # GPU 1000 cellules
-├── GPU_AGENT_README.md                 # Documentation GPU détaillée
+├── GPU_AGENT_README.md                 # Documentation GPU de base
 ├── morphogenesis_oxygen_gpu.jl         # Simulation optimal control (CPU)
 ├── morphogenesis_n50.jl                # Optimal control 50 cellules
 ├── morphogenesis_n100.jl               # Optimal control 100 cellules
@@ -146,16 +160,40 @@ Instructions pour installer et lancer.
 └── README.md                           # Ce fichier
 ```
 
-## Deux Approches de Simulation
+## Trois Approches de Simulation
 
-### 🚀 GPU Agent-Based (RECOMMANDÉ pour n≥100)
+### 🎯 GPU Avancé (NOUVEAU - Plus Réaliste)
+
+**Nouvelles Fonctionnalités :**
+- ✅ Dynamique d'oxygène (diffusion, consommation, production)
+- ✅ Division cellulaire (oxygène élevé)
+- ✅ Mort cellulaire/apoptose (oxygène faible)
+- ✅ Adhésion cellule-cellule
+- ✅ Forces élastiques
+- ✅ Chimiotaxie (suivi gradient d'oxygène)
+- ✅ Population dynamique
+- ✅ Architecture extensible pour 3D
+
+**Performances :**
+- 50 cellules : ~10 secondes
+- 100 cellules : ~20 secondes
+- 200 cellules : ~40 secondes
+
+**Quand utiliser :**
+- Besoin de dynamique de population
+- Modélisation réaliste avec division/mort
+- Étude de morphogénèse avec gradients
+
+Voir [GPU_ADVANCED_FEATURES.md](GPU_ADVANCED_FEATURES.md) pour détails complets.
+
+### 🚀 GPU Agent-Based de Base (Pour grande échelle)
 
 **Caractéristiques :**
 - ✅ Vraie accélération GPU avec kernels CUDA
 - ✅ Scalable jusqu'à 1000+ cellules
 - ✅ Temps de calcul : secondes à minutes
 - ✅ Biologiquement réaliste (règles locales)
-- ✅ Inspiré de la recherche (Jeannin-Girardon, Ballet, Rodin)
+- ✅ Population fixe
 
 **Performances :**
 - 50 cellules : ~5-10 secondes
@@ -164,8 +202,8 @@ Instructions pour installer et lancer.
 - 1000 cellules : ~1-2 minutes
 
 **Quand utiliser :**
-- Simulations à grande échelle (n>50)
-- Besoin de performance
+- Simulations à très grande échelle (n>500)
+- Population fixe
 - GPU NVIDIA disponible
 
 Voir [GPU_AGENT_README.md](GPU_AGENT_README.md) pour plus de détails.

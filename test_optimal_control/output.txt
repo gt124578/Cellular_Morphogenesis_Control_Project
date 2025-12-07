@@ -1,6 +1,0 @@
-Pour R21 :
-
-Génération du modèle pour 10 cellules...
-Résolution en cours (Dimension 21, 45 contraintes de collision)...
-Terminé en T = 2.890172746205026
-Énergie totale : 2.890172746194657

@@ -1,0 +1,7 @@
+- présente la morphogénèse (définition, inspiration aubin, mpc, fractones)
+- test optimal control (cpu -> gpu -> mpc -> multi-agents mpc)
+- retour en bases (on a essayé embryogénèse qui n'a jamais marché) donc drapeau fraçais émergent (par vraiment on a essayé)
+- problème implémentation fibroblaste en multi-agent sur le drapeau 
+- -> meca-flu 
+- difficulté d'implémentation et changement de paradigme
+- réussite de former la cocarde émergente
